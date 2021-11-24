@@ -1,17 +1,21 @@
-
-const express = require('express')
-const app = express()
-const port = 3000
+const path = require('path');
+const express = require('express');
 const Controller = require('./controller');
 
-// Miners
-const controller = new Controller();
-controller.loadMiner('stratum');
+const app = express()
+const port = 3000
 
-// Public API 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+// Miners manager
+const controller = new Controller();
+
+// Loading specific miners
+controller.loadMiner('stratum');
+controller.loadMiner('coinhive');
+
+// Public API (status, settings etc)
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, '../../client/src/html/index.html'));
+});
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
