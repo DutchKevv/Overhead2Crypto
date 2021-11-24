@@ -1,0 +1,19 @@
+{
+  "name": "overhead2crypto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DutchKevv/Overhead2Crypto.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DutchKevv/Overhead2Crypto/issues"
+  },
+  "homepage": "https://github.com/DutchKevv/Overhead2Crypto#readme"
+}
