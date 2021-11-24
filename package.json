@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "client-start": "cd ./client && npm start",
+    "server-start": "cd ./server && npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
