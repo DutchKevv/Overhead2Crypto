@@ -9,6 +9,8 @@ interface IChartOptions {
     title: string;
     yTitle: string;
     xTitle: string;
+    type?: 'bar' | 'column' | 'line';
+    data?: any[];
 }
 
 export class Chart {
@@ -35,7 +37,10 @@ export class Chart {
 
     _render() {
         this._chart = Highcharts.chart(this._options.el, {
-
+            chart: {
+                type: this._options.type || 'line'
+            },
+            
             title: {
                 text: this._options.title
             },
@@ -52,7 +57,10 @@ export class Chart {
                 labels: {
                     format: '{value:%Y-%m-%d}',
                     rotation: 45,
-                    align: 'left'
+                    align: 'left',
+                    formatter: function() {
+                        return Highcharts.dateFormat("%H:%M:%S", this.value);
+                      }
                 },
             },
 
@@ -65,6 +73,7 @@ export class Chart {
 
             plotOptions: {
                 series: {
+                    step: 'left', // or 'center' or 'right'
                     label: {
                         connectorAllowed: false
                     },
@@ -72,10 +81,7 @@ export class Chart {
                 }
             },
 
-            series: [{
-                name: 'Installation',
-                data: []
-            }],
+            series: this._options.data || [{}],
 
             responsive: {
                 rules: [{

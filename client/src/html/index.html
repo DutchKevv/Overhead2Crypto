@@ -9,35 +9,68 @@
 <body>
 
     <div class="container-fluid">
+
+        <h1 style="margin-bottom: 30px;">Performance</h1>
+        <hr>
+
         <div class="row">
             <div class="col-lg-4 col-sm-12 col-xs-12 ">
                 <div class="jumbotron">
-                    <div id="chart1"></div>
+                    <div id="activityChart"></div>
                 </div>
             </div>
 
             <div class="col-lg-4 col-sm-12 col-xs-12 ">
                 <div class="jumbotron">
-                    <div id="chart2"></div>
+                    <div id="poolChart"></div>
                 </div>
             </div>
 
             <div class="col-lg-4 col-sm-12 col-xs-12 ">
                 <div class="jumbotron">
-                    <div id="chart3"></div>
+                    <div id="coinChart"></div>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="container-fluid">
 
-    <form class="content-wrapper container-fluid" onchange="window.app.onSettingsChange();">
+        <h1 style="margin-bottom: 30px;">System</h1>
+        <hr>
+
+        <div class="row">
+            <div class="col-lg-4 col-sm-12 col-xs-12 ">
+                <div class="jumbotron">
+                    <div id="CPUChart"></div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-12 col-xs-12 ">
+                <div class="jumbotron">
+                    <div id="GPUChart"></div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-12 col-xs-12 ">
+                <div class="jumbotron">
+                    <div id="RAMChart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form class="content-wrapper container-fluid" onchange="window.app.onSettingsChange(this, event);">
+        
+        <h1 style="margin-bottom: 30px;">Settings</h1>
+        <hr>
+
         <div class="row">
             <div class="col-4 col-sm-12">
                 <div class="card">
-                    <div class="card-body">Max CPU</h5>
+                    <div class="card-body">Max CPU <span></span></h5>
                         <p class="card-text">
-                            <input type="range" class="form-range" id="customRange1">
+                            <input name="maxCPU" type="range" class="form-range">
                         </p>
                     </div>
                 </div>
@@ -45,9 +78,9 @@
 
             <div class="col-4 col-sm-12">
                 <div class="card">
-                    <div class="card-body">Max GPU</h5>
+                    <div class="card-body">Max GPU <span></span></h5>
                         <p class="card-text">
-                            <input type="range" class="form-range" id="customRange1">
+                            <input name="maxGPU" type="range" class="form-range">
                         </p>
                     </div>
                 </div>
@@ -55,9 +88,9 @@
 
             <div class="col-4 col-sm-12">
                 <div class="card">
-                    <div class="card-body">Max RAM</h5>
+                    <div class="card-body">Max RAM <span></span></h5>
                         <p class="card-text">
-                            <input type="range" class="form-range" id="customRange1">
+                            <input name="maxRAM" type="range" class="form-range">
                         </p>
                     </div>
                 </div>

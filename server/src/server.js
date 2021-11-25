@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+const bodyParser = require('body-parser');
 const Controller = require('./miners.controller');
 
 module.exports = class App {
@@ -48,6 +49,8 @@ module.exports = class App {
     _setupWebServer() {
         this._app = express();
         this._app.use(express.static(path.join(__dirname, '../../public')));
+        this._app.use(express.json()); //Used to parse JSON bodies
+        this._app.use(bodyParser.urlencoded({ extended: true }));
 
         // Public API (status, settings etc)
         this._app.get('/', (req, res) => {
@@ -56,11 +59,13 @@ module.exports = class App {
 
         this._app.get('/status', (req, res) => {
             res.send({
-                system: this._controller._system
+                system: this._controller._system,
+                performance: this._controller.status
             });
         });
 
         this._app.post('/settings', (req, res) => {
+            this._controller.updateSettings(req.body);
             res.sendStatus(200)
         });
 

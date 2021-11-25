@@ -6,11 +6,14 @@ var Table = require('cli-table');
 
 module.exports = class Controller {
 
+    _active = false;
+
     _running = false;
 
     _settings = {
-        maxCpu: 60,
-        maxMem: 60,
+        maxCPU: 60,
+        maxGPU: 60,
+        maxRAM: 60,
         tickInterval: 2000
     };
 
@@ -22,6 +25,27 @@ module.exports = class Controller {
         cpuLoad: 0,
         freeMem: 0,
         ram: {}
+    }
+
+    _status = {
+        coins: [
+            {
+                id: 'stratus',
+                total: 0
+            }
+        ]
+    }
+
+    get status() {
+        return {
+            coins: [
+                {
+                    id: 'stratus',
+                    total: 0
+                }
+            ],
+            active: this._active
+        }
     }
 
     constructor() {
@@ -49,7 +73,7 @@ module.exports = class Controller {
     }
 
     async tick() {
-        this._system.cpuLoad = await cpu.usage();
+        this._system.cpuLoad = await cpu.usage() * 100;
         this._system.ram = await mem.info();
         this._system.cpu = os.cpus();
         this._system.freeMem = os.freemem();
@@ -76,11 +100,21 @@ module.exports = class Controller {
             , ['First value', 'Second value']
         );
 
-        // console.log(table.toString());
+        if (this._settings.maxCPU > this._system.cpuLoad) {
+            console.info('miner running!')
+            this._active = true;
+        } else {
+            this._active = false;
+            
+            console.info('miner not running')
+        }
+
+        this._status.coins[0].total = 0;
     }
 
     updateSettings(settings) {
         Object.assign(this._settings, settings);
+        console.log(this._settings)
     }
 
     loadMiner(name) {
