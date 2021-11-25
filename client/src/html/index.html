@@ -1,0 +1,73 @@
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js" integrity="sha512-FJ2OYvUIXUqCcPf1stu+oTBlhn54W0UisZB/TNrZaVMHHhYvLBV9jMbvJYtvDe5x/WVaoXZ6KB+Uqe5hT2vlyA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- styles -->
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4 col-sm-12 col-xs-12 ">
+                <div class="jumbotron">
+                    <div id="chart1"></div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-12 col-xs-12 ">
+                <div class="jumbotron">
+                    <div id="chart2"></div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-12 col-xs-12 ">
+                <div class="jumbotron">
+                    <div id="chart3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <form class="content-wrapper container-fluid" onchange="window.app.onSettingsChange();">
+        <div class="row">
+            <div class="col-4 col-sm-12">
+                <div class="card">
+                    <div class="card-body">Max CPU</h5>
+                        <p class="card-text">
+                            <input type="range" class="form-range" id="customRange1">
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4 col-sm-12">
+                <div class="card">
+                    <div class="card-body">Max GPU</h5>
+                        <p class="card-text">
+                            <input type="range" class="form-range" id="customRange1">
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4 col-sm-12">
+                <div class="card">
+                    <div class="card-body">Max RAM</h5>
+                        <p class="card-text">
+                            <input type="range" class="form-range" id="customRange1">
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    <!-- scripts -->
+    <script src="main.js"></script>
+</body>
+
+</html>

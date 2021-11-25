@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "target": "es5",
+        "watch": true,
+        "module": "ES2015",
+        "sourceMap": false,
+        "isolatedModules": false,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "noImplicitUseStrict": false,
+        "declaration": false
+    },
+    "files": [
+        "./src/js/index.ts"
+    ],
+    "include": [
+        "src/**/*.spec.ts",
+        "src/**/*.d.ts"
+    ]
+}

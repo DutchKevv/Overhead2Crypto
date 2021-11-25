@@ -2,7 +2,7 @@
   "name": "overhead2crypto",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./server/src/index.js",
   "scripts": {
     "client-start": "cd ./client && npm start",
     "server-start": "cd ./server && npm start",
