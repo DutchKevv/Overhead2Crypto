@@ -53,7 +53,7 @@ module.exports = class Controller {
     }
 
     init() {
-        console.log(33)
+        
     }
 
     start() {
@@ -101,12 +101,21 @@ module.exports = class Controller {
         );
 
         if (this._settings.maxCPU > this._system.cpuLoad) {
-            console.info('miner running!')
             this._active = true;
+
+            console.info('miner running!')
+
         } else {
             this._active = false;
             
             console.info('miner not running')
+        }
+
+        if (this._active) {
+            console.log(this.miners)
+            this._miners.forEach(miner => miner.start());
+        } else {
+            this._miners.forEach(miner => miner.stop());
         }
 
         this._status.coins[0].total = 0;
@@ -120,6 +129,7 @@ module.exports = class Controller {
     loadMiner(name) {
         const miner = require(`./miners/${name}`);
         miner.init();
+        this._miners.push(miner);
     }
 
     removeMiner(name) {
