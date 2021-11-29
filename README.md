@@ -1,4 +1,4 @@
-# OpenMiner
+# Eazy Node Miner
 
 Mine cryptocurrencies [Monero (XMR)](https://getmonero.org/) from node.js (Linux/Windows).
 Just include it into your project and make some extra money :)
