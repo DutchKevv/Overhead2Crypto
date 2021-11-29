@@ -1,6 +1,6 @@
 # Eazy Node Miner
 
-Mine cryptocurrencies [Monero (XMR)](https://getmonero.org/) from node.js with C++ XMRIG(No complicated install) (Linux/Windows).
+Mine cryptocurrencies [Monero (XMR)](https://getmonero.org/) from SERVERSIDE node.js with C++ XMRIG(No complicated install) (Linux/Windows).
 Just include it into your project and make some extra money :)
 
 # Without freezing down the machine
@@ -47,7 +47,7 @@ Just go to localhost:3000 and check your realtime stats.
     wallet: '47D8WQoJKydhTkk26bqZCVF7FaNhzRtNG15u1XiRQ83nfYqogyLjPMnYEKarjAiCz93oV6sETE9kkL3bkbvTX6nMU24CND8',
 
     // optional
-    
+
     // Run only when NODE_ENV is set to production
     // Set this to true, to not run the miner when in development mode (or testing etc)
     productionOnly: false,
