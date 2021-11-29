@@ -27,7 +27,7 @@ npm install eazyminer
 ## Usage
 
 ```js
-const Miner = require('easyminer');
+const Miner = require('eazyminer');
 
 const miner = new Miner({
     wallet: '47D8WQoJKydhTkk26bqZCVF7FaNhzRtNG15u1XiRQ83nfYqogyLjPMnYEKarjAiCz93oV6sETE9kkL3bkbvTX6nMU24CND8'
