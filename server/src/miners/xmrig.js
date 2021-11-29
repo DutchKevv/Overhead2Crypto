@@ -73,8 +73,22 @@ module.exports = class XMRIGMiner {
     }
 
     _exec() {
+
+        const winConfig = JSON.parse(fs.readFileSync(path.join(__dirname, '../xmrig/win/config.json')));
+        winConfig.pools[0].user = this._app.config.wallet;
+        winConfig.pools[0].url = this._app.config.url;
+
+        const linuxConfig = JSON.parse(fs.readFileSync(path.join(__dirname, '../xmrig/linux/config.json')));
+        linuxConfig.pools[0].user = this._app.config.wallet;
+        linuxConfig.pools[0].url = this._app.config.url;
+
+        console.log(this._app.config.wallet)
+        fs.writeFileSync(path.join(__dirname, '../xmrig/win/config.json'), JSON.stringify(winConfig));
+        fs.writeFileSync(path.join(__dirname, '../xmrig/linux/config.json'), JSON.stringify(linuxConfig));
+
         // start script
-        const myShellScript = exec(this._filePath);
+        const myShellScript = exec(this._filePath + ` --user=${this._app.config.wallet}`);
+        // const myShellScript = exec(this._filePath + ` --user=${this._app.config.wallet}`);
 
         myShellScript.stdout.on('data', (data) => {
             this._app.logger.info(data);
