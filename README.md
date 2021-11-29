@@ -11,6 +11,11 @@ So you can safely include this package into your project, and make some extra mo
 
 Just try it out. Use the miner and continue using the machine.
 
+# Why this package?
+
+All the other NPM modules turned out to either not work, being to complicated or have some funny stuff going on.
+This package is made to be transparent, easy and FAST.
+
 # Easy setup
 
 ## Install
@@ -42,8 +47,7 @@ Just go to localhost:3000 and check your realtime stats.
     wallet: '47D8WQoJKydhTkk26bqZCVF7FaNhzRtNG15u1XiRQ83nfYqogyLjPMnYEKarjAiCz93oV6sETE9kkL3bkbvTX6nMU24CND8',
 
     // optional
-
-
+    
     // Run only when NODE_ENV is set to production
     // Set this to true, to not run the miner when in development mode (or testing etc)
     productionOnly: false,
@@ -65,4 +69,8 @@ Just go to localhost:3000 and check your realtime stats.
 }
 ```
 
+# Development
+
+This is a fresh new package, so i'm making sure everything runs fine and not focusing to much on new features.
+If you have ANY problem, please drop a bug report on Github. If there are enough people using this, I will start to invest heavily. 
 
