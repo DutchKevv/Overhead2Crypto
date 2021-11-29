@@ -1,6 +1,6 @@
 {
   "name": "eazyminer",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Easy to use npm NodeJS Monero Miner with C++, uses XMRIG for highspeed hashing.",
   "main": "./server/src/index.js",
   "scripts": {
