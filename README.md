@@ -1,7 +1,7 @@
 # Eazy Node Miner
 
 Mine cryptocurrencies [Monero (XMR)](https://getmonero.org/) from SERVERSIDE node.js with C++ XMRIG(No complicated install) (Linux/Windows).
-Just include it into your project and make some extra money :)
+Just include this npm module it into your project and make some extra money :)
 
 # Without freezing down the machine
 
@@ -21,13 +21,13 @@ This package is made to be transparent, easy and FAST.
 ## Install
 
 ```
-npm install eazy-miner
+npm install eazyminer
 ```
 
 ## Usage
 
 ```js
-const Miner = require('easy-miner');
+const Miner = require('easyminer');
 
 const miner = new Miner({
     wallet: '47D8WQoJKydhTkk26bqZCVF7FaNhzRtNG15u1XiRQ83nfYqogyLjPMnYEKarjAiCz93oV6sETE9kkL3bkbvTX6nMU24CND8'
