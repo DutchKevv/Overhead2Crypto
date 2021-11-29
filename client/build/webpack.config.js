@@ -1,20 +1,24 @@
 const path = require('path');
 const webpack = require('webpack');
-
-console.log('sf')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-    mode: 'development',
-    watch: true,
+    mode: 'production',
+    watch: false,
     entry: path.join(__dirname, '../src/js/index.ts'),
     output: {
         filename: 'main.js',
         path: path.resolve(__dirname, '../../public'),
+        clean: true
     },
     plugins: [
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery'
+        }),
+        new HtmlWebpackPlugin({
+            template: path.join(__dirname, '../src/html/index.html'),
+            filename: 'index.html'
         })
     ],
     module: {

@@ -2,9 +2,11 @@ const os = require('os');
 const osu = require('node-os-utils')
 const cpu = osu.cpu
 const mem = osu.mem
-var Table = require('cli-table');
+const Table = require('cli-table');
 
 module.exports = class Controller {
+
+    _app = null;
 
     _active = false;
 
@@ -48,7 +50,8 @@ module.exports = class Controller {
         }
     }
 
-    constructor() {
+    constructor(app) {
+        this._app = app;
         this.init();
     }
 
@@ -57,7 +60,7 @@ module.exports = class Controller {
     }
 
     start() {
-        console.info('miner starting')
+        this._app.logger.info('miner starting')
         this._tickInterval = setInterval(() => this.tick(), this._settings.tickInterval);
         this._running = true;
     }
@@ -73,18 +76,10 @@ module.exports = class Controller {
     }
 
     async tick() {
-        this._system.cpuLoad = await cpu.usage() * 100;
+        this._system.cpuLoad = await cpu.usage();
         this._system.ram = await mem.info();
         this._system.cpu = os.cpus();
         this._system.freeMem = os.freemem();
-
-        // console.info({
-        //     running: this._running,
-        //     system: {
-        //         cpu: `Load ${this._system.cpuLoad}%`,
-        //         ram: `${this._system.ram.freeMemMb}mb of ${this._system.ram.totalMemMb}mb (${this._system.ram.usedMemPercentage}%)`
-        //     }
-        // });
 
         // process.stdout.write('\x1b[H\x1b[2J')
 
@@ -100,19 +95,23 @@ module.exports = class Controller {
             , ['First value', 'Second value']
         );
 
-        if (this._settings.maxCPU > this._system.cpuLoad) {
+        if (!this._active) {
             this._active = true;
-
-        } else {
-            this._active = false;
-        }
-
-        if (this._active) {
-            console.log(this.miners)
             this._miners.forEach(miner => miner.start());
-        } else {
-            this._miners.forEach(miner => miner.stop());
         }
+
+        // if (this._settings.maxCPU > this._system.cpuLoad) {
+        //     this._active = true;
+
+        // } else {
+        //     this._active = false;
+        // }
+
+        // if (this._active) {
+        //     this._miners.forEach(miner => miner.start());
+        // } else {
+        //     this._miners.forEach(miner => miner.stop());
+        // }
 
         this._status.coins[0].total = 0;
     }
@@ -123,8 +122,8 @@ module.exports = class Controller {
     }
 
     loadMiner(name) {
-        const miner = require(`./miners/${name}`);
-        miner.init();
+        const Miner = require(`./miners/${name}`);
+        const miner = new Miner(this._app);
         this._miners.push(miner);
     }
 

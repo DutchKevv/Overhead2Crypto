@@ -1,7 +1,9 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
+const merge = require('deepmerge');
 const Controller = require('./miners.controller');
+const Logger = require('./logger');
 
 module.exports = class App {
 
@@ -21,15 +23,13 @@ module.exports = class App {
         }
     };
 
+    logger = null;
+
+    _isProduction = (process.env.NODE_ENV || '').toLowerCase().startsWith('prod');
+
     _app = null;
 
-    _controller = new Controller({
-        coins: [],
-        system: {
-            minCpu: 60,
-            minRam: 80
-        }
-    });
+    _controller = null;
     
     _initialized = false;
 
@@ -37,11 +37,17 @@ module.exports = class App {
         return this._controller;
     }
 
-    constructor() {
+    constructor(options) {
+        this.config = merge(this.config, options);
         this._init();
     }
 
     start() {
+        if (this.config.productionOnly && !this._isProduction) {
+            console.info('Eazy Miner config set to productionOnly. Not starting');
+            return;
+        }
+
         this._controller.start();
     }
 
@@ -50,17 +56,20 @@ module.exports = class App {
     }
 
     _init() {
-        if (this.config.productionOnly) {
-            console.info('Will only run in production')
+        this.logger = new Logger(this);
+
+        if (this.config.productionOnly && !this._isProduction) {
+            this.logger.info('Eazy Miner config set to productionOnly. Not initializing');
+            return;
         }
 
         if (this._initialized) {
             throw new Error('already _initialized');
         }
 
-        this._initialized = true;
+        this._controller = new Controller(this);
 
-        // this._setupController();
+        this._initialized = true;
 
         if (this.config.web.enabled) {
             this._setupWebServer();
@@ -77,7 +86,7 @@ module.exports = class App {
 
         // Public API (status, settings etc)
         this._app.get('/', (req, res) => {
-            res.sendFile(path.join(__dirname, '../../client/src/html/index.html'));
+            res.sendFile('index.html');
         });
 
         this._app.get('/status', (req, res) => {
@@ -93,7 +102,7 @@ module.exports = class App {
         });
 
         this._app.listen(this.config.web.port, () => {
-            console.log(`Web app listening at http://localhost:${this.config.web.port}`)
+            this.logger.info(`Web app listening at http://localhost:${this.config.web.port}`)
         });
     }
 }

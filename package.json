@@ -1,7 +1,7 @@
 {
-  "name": "overhead2crypto",
-  "version": "1.0.0",
-  "description": "",
+  "name": "eazyminer",
+  "version": "0.0.1",
+  "description": "Easy to use npm NodeJS Monero Miner with C++, uses XMRIG for highspeed hashing.",
   "main": "./server/src/index.js",
   "scripts": {
     "client-start": "cd ./client && npm start",
@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/DutchKevv/Overhead2Crypto.git"
   },
-  "author": "",
+  "author": "H.K.Brandsma",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/DutchKevv/Overhead2Crypto/issues"

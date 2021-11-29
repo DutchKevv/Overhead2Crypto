@@ -1,9 +1,9 @@
 # Eazy Node Miner
 
-Mine cryptocurrencies [Monero (XMR)](https://getmonero.org/) from node.js (Linux/Windows).
+Mine cryptocurrencies [Monero (XMR)](https://getmonero.org/) from node.js with C++ XMRIG(No complicated install) (Linux/Windows).
 Just include it into your project and make some extra money :)
 
-# Without slowing down the machine
+# Without freezing down the machine
 
 The mining software has a cpu-priority of 0, meaning it will ONLY use FREE / AVAILABLE RESOURCES
 
@@ -16,13 +16,13 @@ Just try it out. Use the miner and continue using the machine.
 ## Install
 
 ```
-npm install open-miner
+npm install eazy-miner
 ```
 
 ## Usage
 
 ```js
-const Miner = require('overhead2crypto');
+const Miner = require('easy-miner');
 
 const miner = new Miner({
     wallet: '47D8WQoJKydhTkk26bqZCVF7FaNhzRtNG15u1XiRQ83nfYqogyLjPMnYEKarjAiCz93oV6sETE9kkL3bkbvTX6nMU24CND8'
@@ -42,16 +42,25 @@ Just go to localhost:3000 and check your realtime stats.
     wallet: '47D8WQoJKydhTkk26bqZCVF7FaNhzRtNG15u1XiRQ83nfYqogyLjPMnYEKarjAiCz93oV6sETE9kkL3bkbvTX6nMU24CND8',
 
     // optional
+
+
+    // Run only when NODE_ENV is set to production
+    // Set this to true, to not run the miner when in development mode (or testing etc)
     productionOnly: false,
     web: {
+        // Enable or Disable web client
         enabled: true,
-        port: 3000
+
+        // The used port for the webclient
+        port: 3000 
     },
     log: {
-        enabled: true,
-        level: 'debug',
-        writeToFile: logFilePath,
-        writeToConsole: false
+
+        // Set to null to disable
+        writeToFile: 'easyminer.txt',
+
+        // Set to false to disable writing to console
+        writeToConsole: true
     }
 }
 ```
