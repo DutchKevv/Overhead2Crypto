@@ -57,7 +57,7 @@ module.exports = class Controller {
     }
 
     start() {
-        console.log(44)
+        console.info('miner starting')
         this._tickInterval = setInterval(() => this.tick(), this._settings.tickInterval);
         this._running = true;
     }
@@ -103,12 +103,8 @@ module.exports = class Controller {
         if (this._settings.maxCPU > this._system.cpuLoad) {
             this._active = true;
 
-            console.info('miner running!')
-
         } else {
             this._active = false;
-            
-            console.info('miner not running')
         }
 
         if (this._active) {

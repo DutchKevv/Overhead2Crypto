@@ -8,6 +8,7 @@ module.exports = class App {
     config = {
         productionOnly: false,
         wallet: '47D8WQoJKydhTkk26bqZCVF7FaNhzRtNG15u1XiRQ83nfYqogyLjPMnYEKarjAiCz93oV6sETE9kkL3bkbvTX6nMU24CND8',
+        autoStart: true,
         web: {
             enabled: true,
             port: 3000
@@ -91,8 +92,8 @@ module.exports = class App {
             res.sendStatus(200)
         });
 
-        this._app.listen(this.config.port, () => {
-            console.log(`Web app listening at http://localhost:${this.config.port}`)
+        this._app.listen(this.config.web.port, () => {
+            console.log(`Web app listening at http://localhost:${this.config.web.port}`)
         });
     }
 }
