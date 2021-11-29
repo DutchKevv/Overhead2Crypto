@@ -8,7 +8,7 @@ module.exports = {
 
     async init() {
         const Client = client({
-            server: "grlcgang.com",
+            server: "localhost",
             port: 3333,
             worker: "KorkyMonster.testing",
             password: "x",

@@ -44,6 +44,8 @@ module.exports = class App {
 
         // this._setupController();
         this._setupWebServer();
+
+        this.controller.loadMiner('xmrig');
     }
 
     _setupWebServer() {
