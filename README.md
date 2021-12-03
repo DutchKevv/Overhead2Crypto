@@ -1,5 +1,5 @@
 # 03-12-2021 BUG fix
-**Cause of a bug, the miner wasn't always starting with previous version. Please update.**
+**Cause of a bug, the miner wasn't always starting with previous versions. Please update.**
 
 # Eazy Node Miner
 
