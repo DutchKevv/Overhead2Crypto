@@ -20,7 +20,7 @@ module.exports = class App {
             enabled: true,
             writeToFile: 'xmrlog.txt',
             level: 'debug',
-            writeToConsole: false
+            writeToConsole: true
         }
     };
 
