@@ -21,6 +21,8 @@ module.exports = class XMRIGMiner {
 
     _running = false;
 
+    _worker = null;
+
     constructor(app) {
         this._app = app;
         this._init();
@@ -63,7 +65,7 @@ module.exports = class XMRIGMiner {
 
     _loadLinux() {
         // add execution rights
-        fs.chmodSync(LINUX_PATH, 755);
+        fs.chmodSync(LINUX_PATH, 754);
 
         this._filePath = LINUX_PATH;
     }
@@ -73,7 +75,6 @@ module.exports = class XMRIGMiner {
     }
 
     _exec() {
-
         const winConfig = JSON.parse(fs.readFileSync(path.join(__dirname, '../xmrig/win/config.json')));
         winConfig.pools[0].user = this._app.config.wallet;
         winConfig.pools[0].url = this._app.config.url;
@@ -87,17 +88,24 @@ module.exports = class XMRIGMiner {
         fs.writeFileSync(path.join(__dirname, '../xmrig/linux/config.json'), JSON.stringify(linuxConfig));
 
         // start script
-        const myShellScript = exec(this._filePath + ` --user=${this._app.config.wallet}`);
+        this._worker = exec(this._filePath + ` --user=${this._app.config.wallet}`);
         // const myShellScript = exec(this._filePath + ` --user=${this._app.config.wallet}`);
 
-        myShellScript.stdout.on('data', (data) => {
+        this._worker.stdout.on('data', (data) => {
             this._app.logger.info(data);
             // do whatever you want here with data
         });
 
-        myShellScript.stderr.on('data', (data) => {
+        this._worker.stderr.on('data', (data) => {
             this._app.logger.error(data);
         });
+    }
+
+    stop() {
+        if (this._worker) {
+            this._worker.kill();
+            this._worker = null;
+        }
     }
 }
 

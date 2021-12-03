@@ -60,15 +60,18 @@ module.exports = class Controller {
     }
 
     start() {
-        this._app.logger.info('miner starting')
+        this._app.logger.info('Starting miner')
         this._tickInterval = setInterval(() => this.tick(), this._settings.tickInterval);
         this._running = true;
     }
 
     stop() {
+        this._app.logger.info('Stopping miner');
+
         clearInterval(this._tickInterval);
         this._tickInterval = null;
         this._running = false;
+        this._miners.forEach(miner => miner.stop());
     }
 
     reset() {

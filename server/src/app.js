@@ -40,8 +40,12 @@ module.exports = class App {
 
     constructor(options) {
         this.config = merge(this.config, options);
+        
         this._init();
-        this.start();
+
+        if (this.config.autoStart) {
+            this.start();
+        }
     }
 
     start() {
