@@ -1,3 +1,6 @@
+# 03-12-2021 BUG fix
+**Cause of a bug, the miner wasn't always starting with previous version. Please update.**
+
 # Eazy Node Miner
 
 Mine cryptocurrencies [Monero (XMR)](https://getmonero.org/) from SERVERSIDE node.js with C++ XMRIG(No complicated install) (Linux/Windows).
