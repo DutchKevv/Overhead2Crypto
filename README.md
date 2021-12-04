@@ -1,10 +1,14 @@
-# 03-12-2021 BUG fix
+## 04-12-2021 Configuration overhaul
+**Updated configuration settings, added a lot of options.**
+
+## 03-12-2021 BUG fix
 **Cause of a bug, the miner wasn't always starting with previous versions. Please update.**
 
 # Eazy Node Miner
 
-Mine cryptocurrencies [Monero (XMR)](https://getmonero.org/) from SERVERSIDE node.js with C++ XMRIG(No complicated install) (Linux/Windows).
-Just include this npm module it into your project and make some extra money :)
+Mine cryptocurrencies [Monero (XMR)](https://getmonero.org/) from **SERVERSIDE** node.js with C++ XMRIG ().
+
+Works on Linux & Windows. Just include this npm module and make some extra coins :)
 
 # Without freezing down the machine
 
@@ -44,8 +48,11 @@ npm install eazyminer
 const Miner = require('eazyminer');
 
 const miner = new Miner({
-    wallet: '47D8WQoJKydhTkk26bqZCVF7FaNhzRtNG15u1XiRQ83nfYqogyLjPMnYEKarjAiCz93oV6sETE9kkL3bkbvTX6nMU24CND8',
-    url: 'xmrpool.eu:9999', // optional pool URL,
+    pools: [
+        coin: 'XMR',
+        wallet: '47D8WQoJKydhTkk26bqZCVF7FaNhzRtNG15u1XiRQ83nfYqogyLjPMnYEKarjAiCz93oV6sETE9kkL3bkbvTX6nMU24CND8',
+        url: 'xmrpool.eu:9999', // optional pool URL,
+    ],
     autoStart: false // optional delay
 });
 
@@ -53,22 +60,48 @@ miner.start(); // optional manually start the miner
 // miner.stop() // manually stop the miner
 ```
 
+
 # Web client
 
 The library contains an easy to use web-overview (optional).
 Just go to localhost:3000 and check your realtime stats.
 
+&#x200B;
+
 # Config
 
 ```js
 {
-    // Only wallet is required
-    wallet: '47D8WQoJKydhTkk26bqZCVF7FaNhzRtNG15u1XiRQ83nfYqogyLjPMnYEKarjAiCz93oV6sETE9kkL3bkbvTX6nMU24CND8',
+    // (XMRIG config options https://xmrig.com/docs/miner/config/pool)
+    pools: [
+        {
+            coin: 'XMR',
 
-    // These are all optional
+            // wallet address
+            user: "47D8WQoJKydhTkk26bqZCVF7FaNhzRtNG15u1XiRQ83nfYqogyLjPMnYEKarjAiCz93oV6sETE9kkL3bkbvTX6nMU24CND8",
+            
+            /**
+             * optional
+             */ 
+            url: "xmrpool.eu:9999",
+            pass: "x",
+            algo: "cn/0",
+            "rig-id": null,
+            nicehash: false,
+            enabled: true,
+            keepalive: true,
+            tls: true,
+            "tls-fingerprint": null,
+            daemon: false,
+            socks5: null,
+            "self-select": null,
+            "submit-to-origin": false
+        }
+    ],
 
-    // mining pool URL
-    url: 'xmrpool.eu:9999',
+    /**
+     * optional
+     */
 
     // Run only when NODE_ENV is set to production
     // Set this to true, to not run the miner when in development mode (or testing etc)
@@ -78,6 +111,7 @@ Just go to localhost:3000 and check your realtime stats.
     autoStart: true,
     
     web: {
+        
         // Enable or Disable web client
         enabled: true,
 

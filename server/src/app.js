@@ -9,9 +9,8 @@ module.exports = class App {
 
     config = {
         productionOnly: false,
-        wallet: '47D8WQoJKydhTkk26bqZCVF7FaNhzRtNG15u1XiRQ83nfYqogyLjPMnYEKarjAiCz93oV6sETE9kkL3bkbvTX6nMU24CND8',
-        url: 'xmrpool.eu:9999',
         autoStart: true,
+        pools: [],
         web: {
             enabled: true,
             port: 3000
@@ -31,7 +30,7 @@ module.exports = class App {
     _app = null;
 
     _controller = null;
-    
+
     _initialized = false;
 
     get controller() {
@@ -39,8 +38,20 @@ module.exports = class App {
     }
 
     constructor(options) {
+
         this.config = merge(this.config, options);
         
+        this.logger = new Logger(this);
+
+        if (this.config.wallet) {
+            this.logger.info('Depricated eazyminer configuration. Please check https://www.npmjs.com/package/eazyminer for updated config options.');
+            this.logger.info('Not starting');
+
+            return;
+        }
+
+
+
         this._init();
 
         if (this.config.autoStart) {
@@ -49,8 +60,15 @@ module.exports = class App {
     }
 
     start() {
+        if (this.config.wallet) {
+            this.logger.info('Depricated eazyminer configuration. Please check https://www.npmjs.com/package/eazyminer for updated config options.');
+            this.logger.info('Not starting');
+
+            return;
+        }
+
         if (this.config.productionOnly && !this._isProduction) {
-            console.info('Eazy Miner config set to productionOnly. Not starting');
+            this.logger.info('Eazy Miner config set to productionOnly. Not starting');
             return;
         }
 
@@ -62,8 +80,6 @@ module.exports = class App {
     }
 
     _init() {
-        this.logger = new Logger(this);
-
         if (this.config.productionOnly && !this._isProduction) {
             this.logger.info('Eazy Miner config set to productionOnly. Not initializing');
             return;

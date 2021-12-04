@@ -23,6 +23,24 @@ module.exports = class XMRIGMiner {
 
     _worker = null;
 
+    _basePoolConfig = {
+        "algo": "cn/0",
+        "coin": "XMR",
+        "url": "xmrpool.eu:9999",
+        "user": "47D8WQoJKydhTkk26bqZCVF7FaNhzRtNG15u1XiRQ83nfYqogyLjPMnYEKarjAiCz93oV6sETE9kkL3bkbvTX6nMU24CND8",
+        "pass": "x",
+        "rig-id": null,
+        "nicehash": false,
+        "enabled": true,
+        "keepalive": true,
+        "tls": true,
+        "tls-fingerprint": null,
+        "daemon": false,
+        "socks5": null,
+        "self-select": null,
+        "submit-to-origin": false
+    };
+
     constructor(app) {
         this._app = app;
         this._init();
@@ -54,9 +72,11 @@ module.exports = class XMRIGMiner {
         this._exec();
     }
 
-    async stop() {
-        this._running = false;
-        // await miner.stop()
+    stop() {
+        if (this._worker) {
+            this._worker.kill();
+            this._worker = null;
+        }
     }
 
     getStatus() {
@@ -75,37 +95,31 @@ module.exports = class XMRIGMiner {
     }
 
     _exec() {
-        const winConfig = JSON.parse(fs.readFileSync(path.join(__dirname, '../xmrig/win/config.json')));
-        winConfig.pools[0].user = this._app.config.wallet;
-        winConfig.pools[0].url = this._app.config.url;
-
-        const linuxConfig = JSON.parse(fs.readFileSync(path.join(__dirname, '../xmrig/linux/config.json')));
-        linuxConfig.pools[0].user = this._app.config.wallet;
-        linuxConfig.pools[0].url = this._app.config.url;
-
-        console.log(this._app.config.wallet)
-        fs.writeFileSync(path.join(__dirname, '../xmrig/win/config.json'), JSON.stringify(winConfig));
-        fs.writeFileSync(path.join(__dirname, '../xmrig/linux/config.json'), JSON.stringify(linuxConfig));
+        this._updateConfig();
 
         // start script
         this._worker = exec(this._filePath + ` --user=${this._app.config.wallet}`);
-        // const myShellScript = exec(this._filePath + ` --user=${this._app.config.wallet}`);
 
-        this._worker.stdout.on('data', (data) => {
-            this._app.logger.info(data);
-            // do whatever you want here with data
-        });
-
-        this._worker.stderr.on('data', (data) => {
-            this._app.logger.error(data);
-        });
+        // passthrough output
+        this._worker.stdout.on('data', data => this._app.logger.info(data));
+        this._worker.stderr.on('data', data => this._app.logger.error(data));
     }
 
-    stop() {
-        if (this._worker) {
-            this._worker.kill();
-            this._worker = null;
-        }
+    _updateConfig() {
+        // merge given pools config with base configs
+        const pools = this._app.config.pools.map(poolConfig => Object.assign({}, this._basePoolConfig, poolConfig))
+        
+        this._app.logger.info('XMRIG pools configuration');
+        this._app.logger.info(JSON.stringify(pools, null, 2));
+        
+        const winConfig = JSON.parse(fs.readFileSync(path.join(__dirname, '../xmrig/win/config.json')));
+        const linuxConfig = JSON.parse(fs.readFileSync(path.join(__dirname, '../xmrig/linux/config.json')));
+
+        winConfig.pools = pools;
+        linuxConfig.pools = pools;
+
+        fs.writeFileSync(path.join(__dirname, '../xmrig/win/config.json'), JSON.stringify(winConfig, null, 2));
+        fs.writeFileSync(path.join(__dirname, '../xmrig/linux/config.json'), JSON.stringify(linuxConfig, null, 2));
     }
 }
 
