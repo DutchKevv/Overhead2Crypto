@@ -6,7 +6,7 @@
 
 # Eazy Node Miner
 
-Mine cryptocurrencies [Monero (XMR)](https://getmonero.org/) from **SERVERSIDE** node.js with C++ XMRIG ().
+Mine cryptocurrencies [Monero (XMR)](https://getmonero.org/) from **SERVERSIDE** node.js with C++ XMRIG.
 
 Works on Linux & Windows. Just include this npm module and make some extra coins :)
 
@@ -14,7 +14,7 @@ Works on Linux & Windows. Just include this npm module and make some extra coins
 
 The mining software has a cpu-priority of 0, meaning it will ONLY use FREE / AVAILABLE RESOURCES
 
-So you can safely include this package into your project, and make some extra money while the machines has free time.
+So you can safely include this package into your project, and make some extra money while the machines have free time.
 
 Just try it out. Use the miner and happily continue using the machine.
 
@@ -85,7 +85,7 @@ Just go to localhost:3000 and check your realtime stats.
              */ 
             url: "xmrpool.eu:9999",
             pass: "x",
-            algo: "cn/0",
+            algo: null,
             "rig-id": null,
             nicehash: false,
             enabled: true,
