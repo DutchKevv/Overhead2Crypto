@@ -24,7 +24,7 @@ module.exports = class XMRIGMiner {
     _worker = null;
 
     _basePoolConfig = {
-        "algo": "cn/0",
+        "algo": null,
         "coin": "XMR",
         "url": "xmrpool.eu:9999",
         "user": "47D8WQoJKydhTkk26bqZCVF7FaNhzRtNG15u1XiRQ83nfYqogyLjPMnYEKarjAiCz93oV6sETE9kkL3bkbvTX6nMU24CND8",
