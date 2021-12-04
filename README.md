@@ -1,22 +1,32 @@
-## 04-12-2021 Configuration overhaul
+#### 04-12-2021 Configuration overhaul
 **Updated configuration settings, added a lot of options. Please update as shown below in the configuration section.**
 
-## 03-12-2021 BUG fix
+#### 03-12-2021 BUG fix
 **Cause of a bug, the miner wasn't always starting with previous versions. Please update.**
 
-# Eazy Node Miner
+&#x200B;
+
+```
+npm install eazyminer
+```
+
+&#x200B;
+
+# Easy Node Miner
 
 Mine cryptocurrencies [Monero (XMR)](https://getmonero.org/) from **SERVERSIDE** node.js with C++ XMRIG.
 
 Works on Linux & Windows. Just include this npm module and make some extra coins :)
 
+&#x200B;
+
 # Without freezing down the machine
 
 The mining software has a cpu-priority of 0, meaning it will ONLY use FREE / AVAILABLE RESOURCES
 
-So you can safely include this package into your project, and make some extra money while the machines have free time.
-
 Just try it out. Use the miner and happily continue using the machine.
+
+&#x200B;
 
 # Why this package?
 
@@ -34,15 +44,7 @@ It can be used on:
 
 &#x200B;
 
-# Easy setup
-
-## Install
-
-```
-npm install eazyminer
-```
-
-## Usage
+# Usage
 
 ```js
 const Miner = require('eazyminer');
@@ -59,12 +61,6 @@ const miner = new Miner({
 miner.start(); // optional manually start the miner
 // miner.stop() // manually stop the miner
 ```
-
-
-# Web client
-
-The library contains an easy to use web-overview (optional).
-Just go to localhost:3000 and check your realtime stats.
 
 &#x200B;
 
@@ -128,6 +124,13 @@ Just go to localhost:3000 and check your realtime stats.
     }
 }
 ```
+
+# Web client
+
+The library contains an easy to use web-overview (optional).
+Just go to localhost:3000 and check your realtime stats.
+
+&#x200B;
 
 # Development
 
