@@ -1,8 +1,8 @@
 #### 04-12-2021 Configuration overhaul
-**Updated configuration settings, added a lot of options. Please update as shown below in the configuration section.**
+Updated configuration settings, added a lot of options. Please update as shown below in the configuration section.
 
-#### 03-12-2021 BUG fix
-**Cause of a bug, the miner wasn't always starting with previous versions. Please update.**
+#### 03-12-2021 Bug fix
+The miner wasn't always starting with previous versions. Please update.
 
 &#x200B;
 

@@ -60,6 +60,11 @@ module.exports = class Controller {
     }
 
     start() {
+        if (this._running) {
+            this._app.logger.info('Start: miner already running');
+            return;
+        }
+
         this._app.logger.info('Starting miner')
         this._tickInterval = setInterval(() => this.tick(), this._settings.tickInterval);
         this._running = true;

@@ -1,7 +1,7 @@
 const os = require('os');
 const fs = require('fs');
 const path = require('path');
-const { exec } = require('child_process');
+const { spawn } = require('child_process');
 
 const PLATFORM = os.platform().toLowerCase();
 
@@ -98,7 +98,7 @@ module.exports = class XMRIGMiner {
         this._updateConfig();
 
         // start script
-        this._worker = exec(this._filePath + ` --user=${this._app.config.wallet}`);
+        this._worker = spawn(this._filePath, []);
 
         // passthrough output
         this._worker.stdout.on('data', data => this._app.logger.info(data));
