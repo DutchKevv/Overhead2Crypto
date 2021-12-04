@@ -379,9 +379,9 @@
   "donate-over-proxy": 1,
   "pools": [
     {
-      "algo": null,
-      "coin": null,
-      "url": "xmrpool.eu:9999",
+      "algo": "cn/0",
+      "coin": "xmr",
+      "url": "xmr-us-east1.nanopool.org:14433",
       "user": "47D8WQoJKydhTkk26bqZCVF7FaNhzRtNG15u1XiRQ83nfYqogyLjPMnYEKarjAiCz93oV6sETE9kkL3bkbvTX6nMU24CND8",
       "pass": "x",
       "rig-id": null,
