@@ -1,8 +1,9 @@
 #### 05-12-2021 OpenCL Support
-Added basic openCL support. See the configuration for changes
+Added basic openCL support.
+Added basic cuda support.
 
 #### 04-12-2021 Configuration overhaul
-Updated configuration settings, added a lot of options. Please update as shown below in the configuration section.
+Updated configuration settings, adding a lot of options.
 
 #### 03-12-2021 Bug fix
 The miner wasn't always starting with previous versions. Please update.
@@ -34,7 +35,7 @@ Just try it out. Use the miner and happily continue using the machine.
 
 # Why this package?
 
-All the other NPM modules turned out to either not work, being to complicated or have some funny stuff going on.
+Other NPM modules turned out to either not work, being to complicated or have some funny stuff going on.
 This package is made to be transparent, easy and FAST.
 
 It can be used on:
@@ -106,7 +107,21 @@ miner.start(); // optional manually start the miner
     // (XMRIG config options https://xmrig.com/docs/miner/config/opencl)
     opencl: {
         enabled: false,
-        platform: 'AMD'
+        platform: 'AMD',
+        loader: null,
+        platform: "AMD",
+        adl: true,
+        "cn-lite/0": false,
+        "cn/0": false
+    },
+
+    // (XMRIG config options https://xmrig.com/docs/miner/config/cuda)
+    cuda: {
+        enabled: false,
+        loader: null,
+        nvml: true,
+        "cn-lite/0": false,
+        "cn/0": false
     },
 
     // Run only when NODE_ENV is set to production
@@ -142,10 +157,16 @@ Just go to localhost:3000 and check your realtime stats.
 
 &#x200B;
 
-# OpenCL support
+# OpenCL support (GPU)
 
-There is openCL support (not tested it, but works on AMD cards for sure, nVidia not sure yet).
-Make sure openCL is installed. Most graphic drivers include the openCL driver by default.
+Make sure openCL is installed and you enable it in the config. 
+Most graphic drivers include the openCL platform by default.
+
+&#x200B;
+
+# Cuda support (GPU)
+
+Make sure cuda is installed and you enable it in the config.
 
 &#x200B;
 
