@@ -323,7 +323,7 @@
     "rx/keva": "rx/wow"
   },
   "opencl": {
-    "enabled": false,
+    "enabled": true,
     "cache": true,
     "loader": null,
     "platform": "AMD",

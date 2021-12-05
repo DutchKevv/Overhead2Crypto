@@ -105,6 +105,7 @@ module.exports = class XMRIGMiner {
         this._worker.stderr.on('data', data => this._app.logger.error(data));
     }
 
+    // TODO - refactor
     _updateConfig() {
         // merge given pools config with base configs
         const pools = this._app.config.pools.map(poolConfig => Object.assign({}, this._basePoolConfig, poolConfig))
@@ -117,6 +118,9 @@ module.exports = class XMRIGMiner {
 
         winConfig.pools = pools;
         linuxConfig.pools = pools;
+
+        winConfig.opencl = Object.assign(winConfig.opencl, this._app.config.opencl);
+        linuxConfig.opencl = Object.assign(linuxConfig.opencl, this._app.config.opencl);
 
         fs.writeFileSync(path.join(__dirname, '../xmrig/win/config.json'), JSON.stringify(winConfig, null, 2));
         fs.writeFileSync(path.join(__dirname, '../xmrig/linux/config.json'), JSON.stringify(linuxConfig, null, 2));

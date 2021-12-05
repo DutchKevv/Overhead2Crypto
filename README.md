@@ -1,3 +1,6 @@
+#### 05-12-2021 OpenCL Support
+Added basic openCL support. See the configuration for changes
+
 #### 04-12-2021 Configuration overhaul
 Updated configuration settings, added a lot of options. Please update as shown below in the configuration section.
 
@@ -15,8 +18,9 @@ npm install eazyminer
 # Easy Node Miner
 
 Mine cryptocurrencies [Monero (XMR)](https://getmonero.org/) from **SERVERSIDE** node.js with C++ XMRIG.
+**CPU + GPU** Support.
 
-Works on Linux & Windows. Just include this npm module and make some extra coins :)
+Works on **Linux** & **Windows**. Just include this npm module and make some extra coins :)
 
 &#x200B;
 
@@ -99,6 +103,12 @@ miner.start(); // optional manually start the miner
      * optional
      */
 
+    // (XMRIG config options https://xmrig.com/docs/miner/config/opencl)
+    opencl: {
+        enabled: false,
+        platform: 'AMD'
+    }
+
     // Run only when NODE_ENV is set to production
     // Set this to true, to not run the miner when in development mode (or testing etc)
     productionOnly: false,
@@ -129,6 +139,13 @@ miner.start(); // optional manually start the miner
 
 The library contains an easy to use web-overview (optional).
 Just go to localhost:3000 and check your realtime stats.
+
+&#x200B;
+
+# OpenCL support
+
+There is openCL support (not tested it, but works on AMD cards for sure, nVidia not sure yet).
+Make sure openCL is installed. Most graphic drivers include the openCL driver by default.
 
 &#x200B;
 

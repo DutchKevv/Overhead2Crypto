@@ -11,6 +11,10 @@ module.exports = class App {
         productionOnly: false,
         autoStart: true,
         pools: [],
+        opencl: {
+            enabled: false,
+            platform: 'AMD'
+        },
         web: {
             enabled: true,
             port: 3000
