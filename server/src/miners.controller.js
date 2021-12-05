@@ -130,7 +130,7 @@ module.exports = class Controller {
     }
 
     loadMiner(name) {
-        const Miner = require(`./miners/${name}`);
+        const Miner = require(`./miners/${name}/${name}.miner.js`);
         const miner = new Miner(this._app);
         this._miners.push(miner);
     }
