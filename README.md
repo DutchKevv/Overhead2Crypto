@@ -107,7 +107,7 @@ miner.start(); // optional manually start the miner
     opencl: {
         enabled: false,
         platform: 'AMD'
-    }
+    },
 
     // Run only when NODE_ENV is set to production
     // Set this to true, to not run the miner when in development mode (or testing etc)
