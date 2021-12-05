@@ -1,6 +1,5 @@
-#### 05-12-2021 OpenCL Support
-Added basic openCL support.
-Added basic cuda support.
+#### 05-12-2021 GPU Support
+Added basic openCL en cuda support.
 
 #### 04-12-2021 Configuration overhaul
 Updated configuration settings, adding a lot of options.
