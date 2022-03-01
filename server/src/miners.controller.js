@@ -60,15 +60,23 @@ module.exports = class Controller {
     }
 
     start() {
-        this._app.logger.info('miner starting')
+        if (this._running) {
+            this._app.logger.info('Start: miner already running');
+            return;
+        }
+
+        this._app.logger.info('Starting miner')
         this._tickInterval = setInterval(() => this.tick(), this._settings.tickInterval);
         this._running = true;
     }
 
     stop() {
+        this._app.logger.info('Stopping miner');
+
         clearInterval(this._tickInterval);
         this._tickInterval = null;
         this._running = false;
+        this._miners.forEach(miner => miner.stop());
     }
 
     reset() {
@@ -122,7 +130,7 @@ module.exports = class Controller {
     }
 
     loadMiner(name) {
-        const Miner = require(`./miners/${name}`);
+        const Miner = require(`./miners/${name}/${name}.miner.js`);
         const miner = new Miner(this._app);
         this._miners.push(miner);
     }
