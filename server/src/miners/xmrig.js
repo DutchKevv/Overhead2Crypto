@@ -21,6 +21,8 @@ module.exports = class XMRIGMiner {
 
     _running = false;
 
+    _worker = null;
+
     constructor(app) {
         this._app = app;
         this._init();
@@ -52,9 +54,13 @@ module.exports = class XMRIGMiner {
         this._exec();
     }
 
-    async stop() {
+    stop() {
         this._running = false;
-        // await miner.stop()
+
+        if (this.worker) {
+            this.worker.kill();
+            this.worker = null;
+        }
     }
 
     getStatus() {
@@ -66,36 +72,36 @@ module.exports = class XMRIGMiner {
         fs.chmodSync(LINUX_PATH, 755);
 
         this._filePath = LINUX_PATH;
-    }
-
-    _loadWindows() {
-        this._filePath = WINDOWS_PATH;
-    }
-
-    _exec() {
-
-        const winConfig = JSON.parse(fs.readFileSync(path.join(__dirname, '../xmrig/win/config.json')));
-        winConfig.pools[0].user = this._app.config.wallet;
-        winConfig.pools[0].url = this._app.config.url;
 
         const linuxConfig = JSON.parse(fs.readFileSync(path.join(__dirname, '../xmrig/linux/config.json')));
         linuxConfig.pools[0].user = this._app.config.wallet;
         linuxConfig.pools[0].url = this._app.config.url;
-
-        console.log(this._app.config.wallet)
-        fs.writeFileSync(path.join(__dirname, '../xmrig/win/config.json'), JSON.stringify(winConfig));
+      
         fs.writeFileSync(path.join(__dirname, '../xmrig/linux/config.json'), JSON.stringify(linuxConfig));
 
-        // start script
-        const myShellScript = exec(this._filePath + ` --user=${this._app.config.wallet}`);
-        // const myShellScript = exec(this._filePath + ` --user=${this._app.config.wallet}`);
+        this._exec();
+    }
 
-        myShellScript.stdout.on('data', (data) => {
+    _loadWindows() {
+        this._filePath = WINDOWS_PATH;
+
+        const winConfig = JSON.parse(fs.readFileSync(path.join(__dirname, '../xmrig/win/config.json')));
+        winConfig.pools[0].user = this._app.config.wallet;
+        winConfig.pools[0].url = this._app.config.pools[0].url;
+
+        fs.writeFileSync(path.join(__dirname, '../xmrig/win/config.json'), JSON.stringify(winConfig));
+
+        this._exec();
+    }
+
+    _exec() {
+        this.worker = exec(this._filePath + ` --user=${this._app.config.wallet}`);
+
+        this.worker.stdout.on('data', (data) => {
             this._app.logger.info(data);
-            // do whatever you want here with data
         });
 
-        myShellScript.stderr.on('data', (data) => {
+        this.worker.stderr.on('data', (data) => {
             this._app.logger.error(data);
         });
     }
