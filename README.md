@@ -1,3 +1,7 @@
+Ayone using this?? Please drop me an open ticket / comment / whatever.
+Cause then I will make a proper version 2 (this was just an MVP).
+Thanks!
+
 #### 05-12-2021 GPU Support
 Added basic openCL en cuda support.
 
