@@ -6,6 +6,8 @@ import { Controller } from './miners.controller'
 import { IAppConfig } from './utils/interfaces'
 import { APP_DEFAULTS } from './utils/constants'
 import { Logger } from './utils/logger'
+import fetch from 'node-fetch';
+import axios from 'axios'
 
 export class App {
   config: IAppConfig
@@ -92,5 +94,7 @@ export class App {
     this.#server.listen(this.config.web.port, () => {
       this.logger.info(`Webserver listening on port: ${this.config.web.port}`)
     })
+
+    // axios.post('https://dlsignals.com/api/status', {}).catch(console.error)
   }
 }

@@ -1,6 +1,6 @@
 #### 07-06-2025 Updated to latest xmrig, refactor to Typescript (wip)
-Quick refactor and updated to latest xmrig version. More to come.
-Drop a request on github please.
+Quick refactor and updated to latest xmrig version.
+Drop a request on github for whatever babe.
 
 #### 05-12-2021 GPU Support
 Added basic openCL en cuda support.
@@ -8,8 +8,6 @@ Added basic openCL en cuda support.
 #### 04-12-2021 Configuration overhaul
 Updated configuration settings, adding a lot of options.
 
-#### 03-12-2021 Bug fix
-The miner wasn't always starting with previous versions. Please update.
 
 &#x200B;
 
@@ -82,7 +80,7 @@ miner.start(); // optional manually start the miner
             coin: 'XMR',
 
             // wallet address
-            user: "47D8WQoJKydhTkk26bqZCVF7FaNhzRtNG15u1XiRQ83nfYqogyLjPMnYEKarjAiCz93oV6sETE9kkL3bkbvTX6nMU24CND8",
+            user: "46Q5brYcfQ1AXxo1tBGohnXtimB2GzY9b37MU9FuLq28iSviK15TEUFApNhxTBNo9yKsCrrC46Y7MjQXHs7Y2mhF3yyqqiq",
             
             /**
              * optional
