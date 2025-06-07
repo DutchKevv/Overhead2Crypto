@@ -6,8 +6,9 @@ import { chmodSync, readFileSync, writeFileSync } from 'fs';
 
 const PLATFORM = platform().toLowerCase();
 
-const LINUX_PATH = join(__dirname, '../../../assets/miners/xmrig');
-const WINDOWS_PATH = join(__dirname, '../../../assets/miners/xmrig.exe');
+const LINUX_PATH = join(__dirname, '../../../assets/miners/xmrig/xmrig');
+const WINDOWS_PATH = join(__dirname, '../../../assets/miners/xmrig/xmrig.exe');
+const configBasePath = join(__dirname, '../../../config.base.json');
 
 export class XMRIGMiner {
     name = 'xmrig';
@@ -64,8 +65,9 @@ export class XMRIGMiner {
     }
 
     _loadLinux() {
+        console.log(2323, LINUX_PATH)
         // add execution rights
-        chmodSync(LINUX_PATH, 754);
+        // chmodSync(LINUX_PATH, 777);
 
         this._filePath = LINUX_PATH;
     }
@@ -86,7 +88,6 @@ export class XMRIGMiner {
     }
 
     _updateConfig() {
-        const configBasePath = join(__dirname, './config.base.json');
         const configBase = JSON.parse(readFileSync(configBasePath, 'utf-8'));
 
         // merge given pools config with base configs
@@ -99,7 +100,7 @@ export class XMRIGMiner {
         Object.assign(configBase.opencl, this.app.config.opencl);
         Object.assign(configBase.cuda, this.app.config['cuda']);
 
-        writeFileSync(join(__dirname, 'config.json'), JSON.stringify(configBase, null, 2));
+        writeFileSync(join(__dirname, '../../../assets/miners/xmrig/config.json'), JSON.stringify(configBase, null, 2));
     }
 }
 
