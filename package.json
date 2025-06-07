@@ -4,6 +4,7 @@
   "description": "Easy to use npm NodeJS Monero Miner with C++, uses XMRIG for highspeed hashing.",
   "main": "./server/src/index.js",
   "scripts": {
+    "start": "npm run server:start",
     "build": "npx tsgo --project tsconfig.json",
     "postinstall": "cd server && npm i",
     "client-start": "cd ./client && npm start",
