@@ -55,7 +55,7 @@ It can be used on:
 # Usage
 
 ```js
-const Miner = require('eazyminer');
+const { Miner } = require('eazyminer');
 
 const miner = new Miner({
     pools: [{
