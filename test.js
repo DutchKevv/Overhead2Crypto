@@ -1,6 +1,5 @@
 const { Miner } = require('./server/dist/index.js');
 
-console.log(Miner)
 const miner = new Miner({
     pools: [{
         coin: 'XMR',

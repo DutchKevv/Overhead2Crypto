@@ -9,6 +9,7 @@ const PLATFORM = platform().toLowerCase();
 const LINUX_PATH = join(__dirname, '../../../assets/miners/xmrig/xmrig');
 const WINDOWS_PATH = join(__dirname, '../../../assets/miners/xmrig/xmrig.exe');
 const configBasePath = join(__dirname, '../../../config.base.json');
+const configPath = join(__dirname, '../../../assets/miners/xmrig/config.json')
 
 export class XMRIGMiner {
     name = 'xmrig';
@@ -65,9 +66,8 @@ export class XMRIGMiner {
     }
 
     _loadLinux() {
-        console.log(2323, LINUX_PATH)
         // add execution rights
-        // chmodSync(LINUX_PATH, 777);
+        // chmodSync(LINUX_PATH, 754);
 
         this._filePath = LINUX_PATH;
     }
@@ -100,7 +100,7 @@ export class XMRIGMiner {
         Object.assign(configBase.opencl, this.app.config.opencl);
         Object.assign(configBase.cuda, this.app.config['cuda']);
 
-        writeFileSync(join(__dirname, '../../../assets/miners/xmrig/config.json'), JSON.stringify(configBase, null, 2));
+        writeFileSync(configPath, JSON.stringify(configBase, null, 2));
     }
 }
 
