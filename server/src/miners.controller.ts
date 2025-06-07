@@ -1,12 +1,13 @@
-const os = require('os');
-const osu = require('node-os-utils')
-const cpu = osu.cpu
-const mem = osu.mem
-const Table = require('cli-table');
+import * as osu from 'node-os-utils';
+import Table from 'cli-table';
+import { App } from './app';
+import { XMRIGMiner } from './utils/xmrig.miner'
+import { CpuInfo, cpus, freemem } from 'os';
 
-module.exports = class Controller {
+// const cpu = osu.cpu
+// const mem = osu.mem
 
-    _app = null;
+export class Controller {
 
     _active = false;
 
@@ -19,11 +20,12 @@ module.exports = class Controller {
         tickInterval: 2000
     };
 
-    _miners = [];
+    #miners: any = [];
 
-    _tickInterval = null;
+    #tickInterval: any;
 
-    _system = {
+    #system: any = {
+        cpu: [],
         cpuLoad: 0,
         freeMem: 0,
         ram: {}
@@ -50,8 +52,8 @@ module.exports = class Controller {
         }
     }
 
-    constructor(app) {
-        this._app = app;
+    constructor(private app: App) {
+        this.app = app;
         this.init();
     }
 
@@ -61,22 +63,22 @@ module.exports = class Controller {
 
     start() {
         if (this._running) {
-            this._app.logger.info('Start: miner already running');
+            this.app.logger.info('Start: miner already running');
             return;
         }
 
-        this._app.logger.info('Starting miner')
-        this._tickInterval = setInterval(() => this.tick(), this._settings.tickInterval);
+        this.app.logger.info('Starting miner')
+        this.#tickInterval = setInterval(() => this.tick(), this._settings.tickInterval);
         this._running = true;
     }
 
     stop() {
-        this._app.logger.info('Stopping miner');
+        this.app.logger.info('Stopping miner');
 
-        clearInterval(this._tickInterval);
-        this._tickInterval = null;
+        clearInterval(this.#tickInterval);
+        this.#tickInterval = null;
         this._running = false;
-        this._miners.forEach(miner => miner.stop());
+        this.#miners.forEach(miner => miner.stop());
     }
 
     reset() {
@@ -84,10 +86,10 @@ module.exports = class Controller {
     }
 
     async tick() {
-        this._system.cpuLoad = await cpu.usage();
-        this._system.ram = await mem.info();
-        this._system.cpu = os.cpus();
-        this._system.freeMem = os.freemem();
+        // this.#system.cpuLoad = await cpu.usage();
+        // this.#system.ram = await mem.info();
+        this.#system.cpu = cpus() as CpuInfo[];
+        this.#system.freeMem = freemem();
 
         // process.stdout.write('\x1b[H\x1b[2J')
 
@@ -95,7 +97,7 @@ module.exports = class Controller {
         var table = new Table({
             head: ['TH 1 label', 'TH 2 label']
             , colWidths: [100, 200]
-        });
+        }) as any;
 
         // table is an Array, so you can `push`, `unshift`, `splice` and friends
         table.push(
@@ -105,7 +107,7 @@ module.exports = class Controller {
 
         if (!this._active) {
             this._active = true;
-            this._miners.forEach(miner => miner.start());
+            this.#miners.forEach(miner => miner.start());
         }
 
         // if (this._settings.maxCPU > this._system.cpuLoad) {
@@ -130,9 +132,8 @@ module.exports = class Controller {
     }
 
     loadMiner(name) {
-        const Miner = require(`./miners/${name}/${name}.miner.js`);
-        const miner = new Miner(this._app);
-        this._miners.push(miner);
+        const miner = new XMRIGMiner(this.app);
+        this.#miners.push(miner);
     }
 
     removeMiner(name) {
@@ -149,6 +150,6 @@ module.exports = class Controller {
     }
 
     _getMiner(name) {
-        return this._miners.find(miner => miner.name === name);
+        return this.#miners.find(miner => miner.name === name);
     }
 }

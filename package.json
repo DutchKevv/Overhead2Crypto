@@ -4,9 +4,10 @@
   "description": "Easy to use npm NodeJS Monero Miner with C++, uses XMRIG for highspeed hashing.",
   "main": "./server/src/index.js",
   "scripts": {
+    "build": "npx tsgo --project tsconfig.json",
     "postinstall": "cd server && npm i",
     "client-start": "cd ./client && npm start",
-    "server-start": "cd ./server && npm start",
+    "server:start": "npm run build && cd ./server/dist && node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "XMR-TEMP": "xmrig.exe --donate-level 5 -o xmrpool.eu:9999 -u 47D8WQoJKydhTkk26bqZCVF7FaNhzRtNG15u1XiRQ83nfYqogyLjPMnYEKarjAiCz93oV6sETE9kkL3bkbvTX6nMU24CND8 -k --tls"
   },
@@ -29,5 +30,28 @@
     "fast",
     "c++",
     "node"
-  ]
+  ],
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cli-table": "^0.3.9",
+    "deepmerge": "^4.2.2",
+    "express": "^4.17.1",
+    "node-json-db": "^1.4.1",
+    "node-os-utils": "^1.3.5",
+    "stratum-client": "^1.1.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/cli-progress": "^3.11.6",
+    "@types/minimist": "^1.2.5",
+    "@types/node": "^22.15.30",
+    "@typescript-eslint/utils": "8.33.0",
+    "@typescript/native-preview": "^7.0.0-dev.20250606.1",
+    "eslint": "^9.28.0",
+    "eslint-config-prettier": "10.1.5",
+    "prettier": "^3.5.3",
+    "prettier-plugin-organize-imports": "^4.1.0",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "8.33.0"
+  }
 }
