@@ -1,7 +1,8 @@
 {
-  "files": ["./server/src/index.ts"],
+  "files": ["server/src/index.ts", "server/src/cli.ts"],
 
   "compilerOptions": {
+    "removeComments": false,
     "esModuleInterop":true,
     "target": "es2024",
     "outDir": "server/dist",

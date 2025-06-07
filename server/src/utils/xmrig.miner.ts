@@ -1,15 +1,16 @@
 import { ChildProcessWithoutNullStreams, spawn } from 'child_process';
 import { App } from '../app'
 import { platform } from 'os';
-import { join } from 'path';
+import path, { join } from 'path';
 import { chmodSync, readFileSync, writeFileSync } from 'fs';
 
 const PLATFORM = platform().toLowerCase();
 
-const LINUX_PATH = join(__dirname, '../../../assets/miners/xmrig/xmrig');
-const WINDOWS_PATH = join(__dirname, '../../../assets/miners/xmrig/xmrig.exe');
+const XMRIG_PATH = join(__dirname, '../../../assets/miners/xmrig')
+const LINUX_PATH = join(XMRIG_PATH, 'xmrig');
+const WINDOWS_PATH = join(XMRIG_PATH, 'xmrig.exe');
+const configPath = join(XMRIG_PATH, 'config.json')
 const configBasePath = join(__dirname, '../../../config.base.json');
-const configPath = join(__dirname, '../../../assets/miners/xmrig/config.json')
 
 export class XMRIGMiner {
     name = 'xmrig';
@@ -80,7 +81,7 @@ export class XMRIGMiner {
         this._updateConfig();
 
         // start script
-        this._worker = spawn(this._filePath, []);
+        this._worker = spawn(this._filePath, [], {cwd: XMRIG_PATH});
 
         // passthrough output
         this._worker.stdout.on('data', data => this.app.logger.info(data));
@@ -88,6 +89,7 @@ export class XMRIGMiner {
     }
 
     _updateConfig() {
+   
         const configBase = JSON.parse(readFileSync(configBasePath, 'utf-8'));
 
         // merge given pools config with base configs
@@ -99,6 +101,7 @@ export class XMRIGMiner {
         configBase.pools = pools;
         Object.assign(configBase.opencl, this.app.config.opencl);
         Object.assign(configBase.cuda, this.app.config['cuda']);
+             console.log(2323, configBase, XMRIG_PATH)
 
         writeFileSync(configPath, JSON.stringify(configBase, null, 2));
     }

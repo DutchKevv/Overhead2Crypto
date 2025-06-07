@@ -12,7 +12,8 @@ Updated configuration settings, adding a lot of options.
 &#x200B;
 
 ```
-npm install eazyminer
+npm install -g eazyminer
+eazyminer -u [wallet]
 ```
 
 &#x200B;

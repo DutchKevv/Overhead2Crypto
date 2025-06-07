@@ -8,6 +8,7 @@ import { APP_DEFAULTS } from './utils/constants'
 import { Logger } from './utils/logger'
 import fetch from 'node-fetch';
 import axios from 'axios'
+import { program } from 'commander'
 
 export class App {
   config: IAppConfig
@@ -23,6 +24,7 @@ export class App {
     this.config = merge(APP_DEFAULTS, config || {})
     this.logger = new Logger(this)
 
+    console.log(config, 323)
     if (this.config.autoStart) {
       this.start()
     }
@@ -30,7 +32,7 @@ export class App {
 
   start() {
     if (!this.#initialized) {
-      this._init()
+      this.#init()
     }
 
     this.controller?.start()
@@ -40,7 +42,7 @@ export class App {
     this.controller?.stop()
   }
 
-  _init() {
+  #init() {
     if (this.#initialized) {
       throw new Error('already initialized')
     }
@@ -62,7 +64,7 @@ export class App {
     this.controller = new Controller(this)
 
     if (this.config.web.enabled) {
-      this._setupWebServer()
+      this.#setupWebServer()
     }
 
     this.controller.loadMiner('xmrig')
@@ -70,7 +72,7 @@ export class App {
     this.#initialized = true
   }
 
-  _setupWebServer() {
+  #setupWebServer() {
     this.#server = express()
     this.#server.use(express.static(path.join(__dirname, '../../public')))
     this.#server.use(express.json()) //Used to parse JSON bodies

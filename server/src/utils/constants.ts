@@ -3,7 +3,6 @@ import { IAppConfig } from "./interfaces";
 export const APP_DEFAULTS: IAppConfig = {
   productionOnly: false,
   autoStart: true,
-  pools: [],
   opencl: {
     enabled: false,
     platform: 'AMD',
