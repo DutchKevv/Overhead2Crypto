@@ -1,3 +1,11 @@
 /client
 node_modules
 *.txt
+/server/src/*
+.prettierrc
+eslint.config.json
+tsconfig.json
+xmrlog.txt
+README.node_modules
+.gitignore
+.git

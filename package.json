@@ -1,6 +1,6 @@
 {
   "name": "eazyminer",
-  "version": "0.2.5",
+  "version": "0.2.9",
   "description": "Easy to use npm NodeJS Monero Miner with C++, uses XMRIG for highspeed hashing.",
   "repository": {
     "type": "git",
@@ -27,9 +27,9 @@
     "eazyminer": "./server/dist/cli.js"
   },
   "scripts": {
-    "start:full": "npm run build && sed -i '1i #!/usr/bin/env node' server/dist/cli.js && npm unlink -g && npm link && eazyminer",
+    "start:full": "npm run build && npm unlink -g && npm link && eazyminer",
     "start": "npm run server:start",
-    "build": "npx tsgo --project tsconfig.json && chmod +x server/dist/index.js",
+    "build": "npx tsgo --project tsconfig.json && chmod +x ./server/dist/index.js && sed -i '1i #!/usr/bin/env node' ./server/dist/cli.js",
     "postinstall": "cd server && npm i",
     "client-start": "cd ./client && npm start",
     "server:start": "npm run build && node bootstrap.js",

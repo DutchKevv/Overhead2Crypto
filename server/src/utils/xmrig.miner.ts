@@ -68,7 +68,7 @@ export class XMRIGMiner {
 
     _loadLinux() {
         // add execution rights
-        // chmodSync(LINUX_PATH, 754);
+        chmodSync(LINUX_PATH, 754);
 
         this._filePath = LINUX_PATH;
     }
