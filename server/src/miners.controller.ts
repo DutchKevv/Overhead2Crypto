@@ -4,8 +4,8 @@ import { App } from './app';
 import { XMRIGMiner } from './utils/xmrig.miner'
 import { CpuInfo, cpus, freemem } from 'os';
 
-// const cpu = osu.cpu
-// const mem = osu.mem
+const cpu = osu.cpu
+const mem = osu.mem
 
 export class Controller {
 
@@ -86,8 +86,8 @@ export class Controller {
     }
 
     async tick() {
-        // this.#system.cpuLoad = await cpu.usage();
-        // this.#system.ram = await mem.info();
+        this.#system.cpuLoad = await cpu.usage();
+        this.#system.ram = await mem.info();
         this.#system.cpu = cpus() as CpuInfo[];
         this.#system.freeMem = freemem();
 
