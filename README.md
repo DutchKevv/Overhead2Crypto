@@ -1,4 +1,6 @@
-## Ayone using this?? Please drop me an open ticket / comment / whatever. Cause then I will make a proper version 2. Thanks!
+#### 07-06-2025 Updated to latest xmrig, refactor to Typescript (wip)
+Quick refactor and updated to latest xmrig version. More to come.
+Drop a request on github please.
 
 #### 05-12-2021 GPU Support
 Added basic openCL en cuda support.
